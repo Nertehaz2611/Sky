@@ -15,6 +15,9 @@ public class Quest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(columnDefinition = "TEXT")
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "season_id")
     private Season season;
@@ -33,6 +36,14 @@ public class Quest {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Season getSeason() {

@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Generated;
 
+import java.util.List;
+
 @Entity
 @Table(name = "spirit")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -31,6 +33,9 @@ public class Spirit {
     @ManyToOne
     @JoinColumn(name = "season_id", nullable = true)
     private Season season;
+
+    @OneToMany(mappedBy = "spirit", cascade = CascadeType.ALL)
+    private List<Cosmetic> cosmetics;
 
     public Spirit() {}
 
@@ -80,5 +85,13 @@ public class Spirit {
 
     public void setSeason(Season season) {
         this.season = season;
+    }
+
+    public List<Cosmetic> getCosmetics() {
+        return cosmetics;
+    }
+
+    public void setCosmetics(List<Cosmetic> cosmetics) {
+        this.cosmetics = cosmetics;
     }
 }
