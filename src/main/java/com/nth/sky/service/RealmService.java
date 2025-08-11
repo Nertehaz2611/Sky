@@ -3,7 +3,6 @@ package com.nth.sky.service;
 import com.nth.sky.model.Realm;
 import com.nth.sky.repository.RealmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,16 +21,16 @@ public class RealmService {
         return realmRepository.findById(id);
     }
 
-    public Optional<Realm> getRealmByName(String name) {
-        return realmRepository.findByName(name);
+    public List<Realm> searchRealmsByName(String name) {
+        return realmRepository.findByNameContainingIgnoreCase(name);
     }
 
     public Realm createRealm(Realm realm) {
         return realmRepository.save(realm);
     }
 
-    public Optional<Realm> updateRealm(int id, Realm realmDetails) {
-        return realmRepository.findById(id).map(realm -> {
+    public Optional<Realm> updateRealm(Realm realmDetails) {
+        return realmRepository.findById(realmDetails.getId()).map(realm -> {
            realm.setName(realmDetails.getName());
            realm.setRegions(realmDetails.getRegions());
            realm.setTitle(realmDetails.getTitle());
