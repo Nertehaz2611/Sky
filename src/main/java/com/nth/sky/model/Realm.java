@@ -1,5 +1,6 @@
 package com.nth.sky.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -31,6 +32,7 @@ public class Realm {
     private String video;
 
     @OneToMany(mappedBy = "realm", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Region> regions;
 
     @OneToMany(mappedBy = "realm", cascade = CascadeType.ALL)

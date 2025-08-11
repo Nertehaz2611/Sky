@@ -21,15 +21,15 @@ public class RegionService {
         return regionRepository.findById(id);
     }
 
-    public Optional<Region> getRegionByName(String name) {
-        return regionRepository.findByName(name);
+    public List<Region> getRegionByName(String name) {
+        return regionRepository.findByNameContainingIgnoreCase(name);
     }
 
     public List<Region> getRegionsByRealmId(int realmId) {
         return regionRepository.findByRealmId(realmId);
     }
 
-    public List<Region> getAllRegionsByRealmName(String realmName) {
+    public List<Region> getRegionsByRealmName(String realmName) {
         return regionRepository.findByRealmName(realmName);
     }
 
@@ -37,8 +37,8 @@ public class RegionService {
         return regionRepository.save(region);
     }
 
-    public Optional<Region> updateRegion(int id, Region regionDetails) {
-        return regionRepository.findById(id).map(region -> {
+    public Optional<Region> updateRegion(Region regionDetails) {
+        return regionRepository.findById(regionDetails.getId()).map(region -> {
             region.setName(region.getName());
             region.setTitle(region.getTitle());
             region.setSnippet(region.getSnippet());

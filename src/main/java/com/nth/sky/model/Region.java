@@ -1,6 +1,8 @@
 package com.nth.sky.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,6 +19,7 @@ public class Region {
 
     @ManyToOne
     @JoinColumn(name = "realm_id")
+    @JsonBackReference
     private Realm realm;
 
     private String name;

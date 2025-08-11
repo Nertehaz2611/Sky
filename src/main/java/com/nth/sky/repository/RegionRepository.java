@@ -12,5 +12,5 @@ public interface RegionRepository extends JpaRepository<Region, Integer> {
     List<Region> findByRealmId(int realmId);
     List<Region> findByRealmName(String realmName);
     Optional<Region> findById(int id);
-    Optional<Region> findByName(String name);
+    List<Region> findByNameContainingIgnoreCase(String name);
 }
