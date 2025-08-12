@@ -21,7 +21,7 @@ public class SpiritService {
         return spiritRepository.findById(id);
     }
 
-    public Optional<Spirit> getSpiritByName(String name) {
+    public List<Spirit> getSpiritByName(String name) {
         return spiritRepository.findByName(name);
     }
 
@@ -37,8 +37,8 @@ public class SpiritService {
         return spiritRepository.save(spirit);
     }
 
-    public Optional<Spirit> updateSpirit(int id, Spirit spiritDetails) {
-        return spiritRepository.findById(id).map(spirit -> {
+    public Optional<Spirit> updateSpirit(Spirit spiritDetails) {
+        return spiritRepository.findById(spiritDetails.getId()).map(spirit -> {
             spirit.setName(spiritDetails.getName());
             spirit.setSnippet(spiritDetails.getSnippet());
             spirit.setCosmetics(spiritDetails.getCosmetics());
