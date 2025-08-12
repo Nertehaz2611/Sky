@@ -30,17 +30,25 @@ public class RealmController {
         return realmService.searchRealmsByName(name);
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     public Realm createRealm(@RequestBody Realm realm) {
         return realmService.createRealm(realm);
     }
 
-    @PutMapping()
-    public Optional<Realm> updateRealm(@RequestBody Realm realm) {
-        return realmService.updateRealm(realm);
+    @PutMapping("/update/{id}")
+    public Optional<Realm> updateRealm(@PathVariable int id, @RequestBody Realm realm) {
+        Realm existRealm = realmService.getRealmById(id).orElseThrow(() -> new IllegalArgumentException("Invalid realm id: " + id));
+        existRealm.setName(realm.getName());
+        existRealm.setVideo(realm.getVideo());
+        existRealm.setStory(realm.getStory());
+        existRealm.setSpirits(realm.getSpirits());
+        existRealm.setTitle(realm.getTitle());
+        existRealm.setBg_img(realm.getBg_img());
+        existRealm.setRegions(realm.getRegions());
+        return realmService.updateRealm(existRealm);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public void deleteRealmById(@PathVariable int id) {
         realmService.deleteRealm(id);
     }

@@ -45,21 +45,25 @@ public class RegionController {
         return regionService.getRegionsByRealmName(name);
     }
 
-    @PostMapping("/realm/{id}")
+    @PostMapping("/create/realm/{id}")
     public Region createRegion(@PathVariable int id, @RequestBody Region region) {
         Realm realm = realmRepository.findById(id).orElseThrow(() -> new RuntimeException("Realm not found"));
         region.setRealm(realm);
         return regionService.createRegion(region);
     }
 
-    @PutMapping("/realm/{id}")
+    @PutMapping("/update/{id}")
     public Optional<Region> updateRegion(@PathVariable int id, @RequestBody Region region) {
-        Realm realm = realmRepository.findById(id).orElseThrow(() -> new RuntimeException("Realm not found"));
-        region.setRealm(realm);
-        return regionService.updateRegion(region);
+        Region existingRegion = regionService.getRegionById(id).orElseThrow(() -> new RuntimeException("Region not found"));
+        existingRegion.setName(region.getName());
+        existingRegion.setImg(region.getImg());
+        existingRegion.setSnippet(region.getSnippet());
+        existingRegion.setTitle(region.getTitle());
+        existingRegion.setRealm(region.getRealm());
+        return regionService.updateRegion(existingRegion);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteRegion(@PathVariable int id) {
         regionService.deleteRegion(id);
     }
