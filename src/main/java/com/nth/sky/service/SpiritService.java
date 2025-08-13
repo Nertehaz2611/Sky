@@ -21,8 +21,8 @@ public class SpiritService {
         return spiritRepository.findById(id);
     }
 
-    public List<Spirit> getSpiritByName(String name) {
-        return spiritRepository.findByName(name);
+    public List<Spirit> searchSpiritsByName(String name) {
+        return spiritRepository.findByNameContainingIgnoreCase(name);
     }
 
     public List<Spirit> getSpiritsByRealmId(int realmId) {

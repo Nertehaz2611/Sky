@@ -35,7 +35,7 @@ public class SpiritController {
 
     @GetMapping("/name")
     public List<Spirit> getSpiritByName(@RequestParam String name) {
-        return spiritService.getSpiritByName(name);
+        return spiritService.searchSpiritsByName(name);
     }
 
     @GetMapping("/realm/{id}")

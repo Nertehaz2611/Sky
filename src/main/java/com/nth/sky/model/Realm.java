@@ -1,16 +1,17 @@
 package com.nth.sky.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.List;
 
-
 @Entity
 @Table(name = "realm")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Realm {
 
     @Id
@@ -32,7 +33,6 @@ public class Realm {
     private String video;
 
     @OneToMany(mappedBy = "realm", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Region> regions;
 
     @OneToMany(mappedBy = "realm", cascade = CascadeType.ALL)

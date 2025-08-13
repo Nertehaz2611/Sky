@@ -1,10 +1,10 @@
 package com.nth.sky.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Generated;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "spirit")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Spirit {
 
     @Id
@@ -26,6 +27,9 @@ public class Spirit {
     @Column(columnDefinition = "TEXT")
     private String img;
 
+    @OneToMany(mappedBy = "spirit", cascade = CascadeType.ALL)
+    private List<Cosmetic> cosmetics;
+
     @ManyToOne
     @JoinColumn(name = "realm_id", nullable = true)
     private Realm realm;
@@ -33,9 +37,6 @@ public class Spirit {
     @ManyToOne
     @JoinColumn(name = "season_id", nullable = true)
     private Season season;
-
-    @OneToMany(mappedBy = "spirit", cascade = CascadeType.ALL)
-    private List<Cosmetic> cosmetics;
 
     public Spirit() {}
 

@@ -1,26 +1,20 @@
 package com.nth.sky.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Generated;
 
 @Entity
 @Table(name = "region")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "realm_id")
-    @JsonBackReference
-    private Realm realm;
 
     private String name;
 
@@ -32,6 +26,10 @@ public class Region {
 
     @Column(columnDefinition = "TEXT")
     private String img;
+
+    @ManyToOne
+    @JoinColumn(name = "realm_id")
+    private Realm realm;
 
     public Region() {}
 
