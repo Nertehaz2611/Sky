@@ -21,16 +21,16 @@ public class SeasonService {
         return seasonRepository.findById(id);
     }
 
-    public Optional<Season> getSeasonByName(String name) {
-        return seasonRepository.findByName(name);
+    public List<Season> getSeasonByName(String name) {
+        return seasonRepository.findByNameContainingIgnoreCase(name);
     }
 
     public Season createSeason(Season season) {
         return seasonRepository.save(season);
     }
 
-    public Optional<Season> updateSeason(int id, Season seasonDetails) {
-        return seasonRepository.findById(id).map(season -> {
+    public Optional<Season> updateSeason(Season seasonDetails) {
+        return seasonRepository.findById(seasonDetails.getId()).map(season -> {
             season.setName(seasonDetails.getName());
             season.setTitle(seasonDetails.getTitle());
             season.setStory(seasonDetails.getStory());
